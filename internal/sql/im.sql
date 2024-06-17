@@ -19,7 +19,7 @@ create table tb_user
     updated_at int(10) unsigned not null default 0 comment '更新时间',
     deleted_at int(10) unsigned not null default 0 comment '删除时间'
 ) comment '用户信息表';
-tb_friend
+
 create table tb_friend
 (
     id         bigint unsigned primary key auto_increment comment '自增id',
