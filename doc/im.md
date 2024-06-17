@@ -106,7 +106,7 @@
 > - 命名使用驼峰，用下划线`_`分隔
 > - 所有字段和表都要使用`comment`说明
 > - 不使用物理外键，使用逻辑外键
-> - 时间使用10位时间戳（秒级）`bigint(10) unsigned`
+> - 时间使用10位时间戳（秒级）`int(10) unsigned`
 
 
 
@@ -123,42 +123,44 @@
 | birthday   | bigint(10)  | 0            | 出生日期，`unsigned`   |
 | region     | varchar(20) | ''           | 地区                   |
 | avatar_url | varchar(50) | ''           | 头像url                |
-| create_at  | bigint(10)  | 0            | 创建时间，`unsigned`   |
-| update_at  | bigint(10)  | 0            | 更新时间，`unsigned`   |
-| delete_at  | bigint(10)  | 0            | 删除时间，`unsigned`   |
+| create_at  | int(10)     | 0            | 创建时间，`unsigned`   |
+| update_at  | int(10)     | 0            | 更新时间，`unsigned`   |
+| delete_at  | int(10)     | 0            | 删除时间，`unsigned`   |
 
 
 
 ### 好友关系表
 
-| 字段     | 类型        | 默认值 | 备注         |
-| -------- | ----------- | ------ | ------------ |
-| id       | bigint      | 0      | 自增id       |
-| user1_id | bigint      | 0      | 用户1        |
-| user2_id | bigint      | 0      | 用户2        |
-| beizhu1  | varchar(10) | ''     | user1称user2 |
-| beizhu2  | varchar(10) | ''     | user2称user1 |
-|          |             |        |              |
-|          |             |        |              |
-|          |             |        |              |
-|          |             |        |              |
+| 字段      | 类型        | 默认值 | 备注                 |
+| --------- | ----------- | ------ | -------------------- |
+| id        | bigint      | 0      | 自增id               |
+| user1_id  | bigint      | 0      | 用户1                |
+| user2_id  | bigint      | 0      | 用户2                |
+| beizhu1   | varchar(10) | ''     | user1称user2         |
+| beizhu2   | varchar(10) | ''     | user2称user1         |
+| create_at | int(10)     | 0      | 创建时间，`unsigned` |
+| update_at | int(10)     | 0      | 更新时间，`unsigned` |
+| delete_at | int(10)     | 0      | 删除时间，`unsigned` |
 
 
 
 ### 聊天消息表
 
-| 字段      | 类型          | 默认值 | 备注                                                  |
-| --------- | ------------- | ------ | ----------------------------------------------------- |
-| id        | bigint        | 0      | 自增id                                                |
-| sender_id | bigint        | 0      | 发送者                                                |
-| friend_id | bigint        | 0      |                                                       |
-| group_id  | bigint        | 0      |                                                       |
-| content   | varchar(2000) | ''     | 消息内容，如是图片消息，默认是'[图片]'                |
-| type      | int           | 0      | 消息类型，0：文本消息 1：图片消息                     |
-| status    | int           | 0      | 从右往左已读、撤回、接收方删除、发送方删除    0b01111 |
-| send_at   | bigtint(10)   | 0      |                                                       |
-| img_url   | char(100)     | ''     | 图片url                                               |
-| path_url  | varchar(100)  | ''     | 路径url（文件\|卡片）                                 |
+| 字段       | 类型          | 默认值  | 备注                                                         |
+| ---------- | ------------- | ------- | ------------------------------------------------------------ |
+| id         | bigint        | 0       | 自增id                                                       |
+| sender_uid | bigint        | 0       | 发送者                                                       |
+| friend_id  | bigint        | 0       |                                                              |
+| group_id   | bigint        | 0       |                                                              |
+| content    | varchar(2000) | ''      | 消息内容，如是图片消息，默认是'[图片]'                       |
+| type       | int           | 0       | 消息类型`unsigned`，0：文本消息 1：图片消息                  |
+| status     | int           | 0b00000 | 消息状态`unsigned`，从右往左已读、撤回、接收方删除、发送方删除    0b01111 |
+| send_at    | int(10)       | 0       | 发送时间，`unsigned`                                         |
+| img_url    | char(100)     | ''      | 图片url                                                      |
+| path_url   | varchar(100)  | ''      | 路径url（文件\|卡片）                                        |
+| create_at  | int(10)       | 0       | 创建时间，`unsigned`                                         |
+| update_at  | int(10)       | 0       | 更新时间，`unsigned`                                         |
+| delete_at  | int(10)       | 0       | 删除时间，`unsigned`                                         |
 
 
 
@@ -172,9 +174,9 @@
 | file_url  | char()       | ''     | 文件url                    |
 | size      | int          | 0      | 文件大小（kb），`unsigned` |
 | type      | varchar()    |        |                            |
-| create_at |              |        |                            |
-| update_at |              |        |                            |
-| delete_at |              |        |                            |
+| create_at | int(10)      | 0      | 创建时间，`unsigned`       |
+| update_at | int(10)      | 0      | 更新时间，`unsigned`       |
+| delete_at | int(10)      | 0      | 删除时间，`unsigned`       |
 
 
 
