@@ -3,7 +3,11 @@ package router
 import (
 	"TMS-GIN/api/handler"
 	middle "TMS-GIN/api/middleware"
+	resp "TMS-GIN/internal/common"
+	"fmt"
 	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 	"net/http"
 )
 
@@ -38,5 +42,21 @@ func notAuthRouter(r *gin.Engine) {
 	{
 		accountRouter.POST("login", handler.Login)
 		accountRouter.POST("register", handler.Register)
+	}
+	testRouter := r.Group("test")
+	{
+		testRouter.GET("", func(c *gin.Context) {
+			vv1 := c.Query("kk1")
+			fmt.Println(vv1)
+			c.Set(resp.RES, resp.Success("get-test"))
+		})
+		testRouter.POST("", func(c *gin.Context) {
+			//c.Set(resp.RES, resp.Fail("post-test"))
+			c.JSON(500, gin.H{})
+		})
+	}
+	swaggerRouter := r.Group("swagger")
+	{
+		swaggerRouter.GET("/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	}
 }

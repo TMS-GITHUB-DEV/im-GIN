@@ -4,6 +4,7 @@ import (
 	middle "TMS-GIN/api/middleware"
 	"TMS-GIN/api/router"
 	"TMS-GIN/config"
+	_ "TMS-GIN/docs"
 	"TMS-GIN/internal/datastore"
 	"fmt"
 	"github.com/gin-gonic/gin"
