@@ -1,10 +1,10 @@
 package handler
 
 import (
-	"TMS-GIN/internal/errors"
-	"TMS-GIN/internal/service"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"im-GIN/internal/errors"
+	"im-GIN/internal/service"
 	"net/http"
 	"path/filepath"
 	"strings"

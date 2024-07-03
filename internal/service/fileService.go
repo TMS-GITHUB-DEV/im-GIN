@@ -1,9 +1,9 @@
 package service
 
 import (
-	"TMS-GIN/config"
 	"crypto/sha256"
 	"fmt"
+	"im-GIN/config"
 	"io"
 	"mime/multipart"
 	"os"

@@ -1,10 +1,11 @@
 package middle
 
 import (
-	"TMS-GIN/internal/common"
-	cusErr "TMS-GIN/internal/errors"
 	"errors"
 	"github.com/gin-gonic/gin"
+	"github.com/go-playground/validator/v10"
+	resp "im-GIN/internal/common"
+	cusErr "im-GIN/internal/errors"
 	"net/http"
 )
 
@@ -17,7 +18,10 @@ func Resp(c *gin.Context) {
 	c.Next()
 	for _, err := range c.Errors {
 		var serverErr cusErr.ServerError
+		var validationErr validator.ValidationErrors
 		switch {
+		case errors.As(err.Err, &validationErr):
+			c.JSON(http.StatusOK, resp.FailWithCode(400, validationErr[0].Tag()))
 		case errors.As(err.Err, &serverErr):
 			c.JSON(http.StatusOK, resp.FailWithCode(serverErr.Code, serverErr.Msg))
 		default:

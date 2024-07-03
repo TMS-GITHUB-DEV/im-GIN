@@ -1,10 +1,10 @@
 package middle
 
 import (
-	resp "TMS-GIN/internal/common"
-	"TMS-GIN/internal/errors"
-	"TMS-GIN/internal/utils"
 	"github.com/gin-gonic/gin"
+	resp "im-GIN/internal/common"
+	"im-GIN/internal/errors"
+	"im-GIN/internal/utils"
 	"strings"
 )
 

@@ -1,13 +1,13 @@
 package router
 
 import (
-	"TMS-GIN/api/handler"
-	middle "TMS-GIN/api/middleware"
-	resp "TMS-GIN/internal/common"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
+	"im-GIN/api/handler"
+	middle "im-GIN/api/middleware"
+	resp "im-GIN/internal/common"
 	"net/http"
 )
 

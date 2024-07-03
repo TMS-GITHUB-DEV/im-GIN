@@ -1,13 +1,13 @@
 package service
 
 import (
-	"TMS-GIN/internal/dao"
-	"TMS-GIN/internal/datastore"
-	"TMS-GIN/internal/errors"
-	"TMS-GIN/internal/model"
-	"TMS-GIN/internal/utils"
 	"context"
 	"fmt"
+	"im-GIN/internal/dao"
+	"im-GIN/internal/datastore"
+	"im-GIN/internal/errors"
+	"im-GIN/internal/model"
+	"im-GIN/internal/utils"
 	"sync"
 	"time"
 )
@@ -69,5 +69,8 @@ func (*AccountService) LoginWithPwd(account *model.Account) (*model.User, error)
 func (*AccountService) Register(user *model.User) error {
 	accountDao := dao.GetAccountDao()
 	err := accountDao.Register(user)
+	if err != nil {
+		// Log
+	}
 	return err
 }

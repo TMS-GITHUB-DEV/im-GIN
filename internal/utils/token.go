@@ -1,8 +1,8 @@
 package utils
 
 import (
-	"TMS-GIN/config"
 	"github.com/golang-jwt/jwt/v5"
+	"im-GIN/config"
 	"time"
 )
 

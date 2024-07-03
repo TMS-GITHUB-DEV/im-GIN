@@ -1,8 +1,8 @@
 package datastore
 
 import (
-	"TMS-GIN/config"
 	"github.com/redis/go-redis/v9"
+	"im-GIN/config"
 )
 
 var Cache *redis.Client

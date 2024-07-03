@@ -1,12 +1,12 @@
 package datastore
 
 import (
-	"TMS-GIN/config"
 	"fmt"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 	"gorm.io/gorm/schema"
+	"im-GIN/config"
 	"log"
 	"os"
 	"time"

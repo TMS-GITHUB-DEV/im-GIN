@@ -1,13 +1,13 @@
 package main
 
 import (
-	middle "TMS-GIN/api/middleware"
-	"TMS-GIN/api/router"
-	"TMS-GIN/config"
-	_ "TMS-GIN/docs"
-	"TMS-GIN/internal/datastore"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	middle "im-GIN/api/middleware"
+	"im-GIN/api/router"
+	"im-GIN/config"
+	_ "im-GIN/docs"
+	"im-GIN/internal/datastore"
 )
 
 func main() {

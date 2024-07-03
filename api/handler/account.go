@@ -1,12 +1,12 @@
 package handler
 
 import (
-	resp "TMS-GIN/internal/common"
-	"TMS-GIN/internal/errors"
-	"TMS-GIN/internal/model"
-	"TMS-GIN/internal/service"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	resp "im-GIN/internal/common"
+	"im-GIN/internal/errors"
+	"im-GIN/internal/model"
+	"im-GIN/internal/service"
 )
 
 // Login
@@ -45,6 +45,16 @@ func Login(c *gin.Context) {
 	c.Set(resp.RES, resp.Success(token))
 }
 
+// Register
+// @Tags [account]
+// @Summary 注册
+// @Description 注册帐号
+// @Accept json
+// @Produce json
+// @Param phone body model.User true "电话与密码"
+// @success 200 {object} resp.R 注册成功
+// @success 500 {object} resp.R 注册失败
+// @Router /account/register [post]
 func Register(c *gin.Context) {
 	var user model.User
 	if err := c.ShouldBindJSON(&user); err != nil {

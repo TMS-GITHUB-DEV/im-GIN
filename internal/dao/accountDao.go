@@ -1,8 +1,8 @@
 package dao
 
 import (
-	"TMS-GIN/internal/datastore"
-	"TMS-GIN/internal/model"
+	"im-GIN/internal/datastore"
+	"im-GIN/internal/model"
 	"sync"
 )
 

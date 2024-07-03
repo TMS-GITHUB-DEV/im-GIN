@@ -1,4 +1,4 @@
-module TMS-GIN
+module im-GIN
 
 go 1.22
 
