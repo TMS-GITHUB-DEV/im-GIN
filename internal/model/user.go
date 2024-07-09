@@ -12,15 +12,12 @@ type User struct {
 	Sex       uint8  `json:"sex,omitempty"`
 	Email     string `json:"email,omitempty"`
 	AvatarUrl string `json:"avatar_url,omitempty"`
-
-	CreatedAt uint64 `json:"created_at,omitempty"`
-	UpdatedAt uint64 `json:"updated_at,omitempty"`
-	DeletedAt uint64 `json:"deleted_at,omitempty"`
+	BaseModel
 }
 
 // BeforeCreate
 // 用户插入前生成雪花id
 func (user *User) BeforeCreate(_ *gorm.DB) error {
-	user.Id = uint64(utils.GetSnowflakeID())
+	user.Id = utils.GetSnowflakeID()
 	return nil
 }

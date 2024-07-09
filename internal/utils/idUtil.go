@@ -1,17 +1,26 @@
 package utils
 
-import "github.com/bwmarrin/snowflake"
+import (
+	"github.com/bwmarrin/snowflake"
+	"sync"
+)
 
-var node *snowflake.Node
+var (
+	node *snowflake.Node
+	once sync.Once
+)
 
-func init() {
-	var err error
-	node, err = snowflake.NewNode(1)
-	if err != nil {
-		panic(err)
-	}
+func getNode() *snowflake.Node {
+	once.Do(func() {
+		var err error
+		node, err = snowflake.NewNode(1)
+		if err != nil {
+			panic(err)
+		}
+	})
+	return node
 }
 
-func GetSnowflakeID() int64 {
-	return node.Generate().Int64()
+func GetSnowflakeID() uint64 {
+	return uint64(getNode().Generate().Int64())
 }

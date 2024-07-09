@@ -28,6 +28,7 @@ func authRouter(r *gin.RouterGroup) {
 	userRouter := r.Group("user")
 	{
 		userRouter.GET("", handler.GetUserInfo)
+		userRouter.PUT("", handler.ModifyUserInfo)
 	}
 
 	fileRouter := r.Group("file")

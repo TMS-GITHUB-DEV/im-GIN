@@ -1,6 +1,10 @@
 package service
 
-import "sync"
+import (
+	"im-GIN/internal/dao"
+	"im-GIN/internal/model"
+	"sync"
+)
 
 type UserService struct {
 }
@@ -15,4 +19,10 @@ func GetUserService() *UserService {
 		userService = &UserService{}
 	})
 	return userService
+}
+
+func (UserService *UserService) ModifyUserInfo(user *model.User) error {
+	userDao := dao.GetUserDaoInstance()
+	err := userDao.ModifyUserInfo(user)
+	return err
 }

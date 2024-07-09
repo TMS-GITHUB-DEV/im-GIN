@@ -69,8 +69,8 @@ func (*AccountService) LoginWithPwd(account *model.Account) (*model.User, error)
 func (*AccountService) Register(user *model.User) error {
 	accountDao := dao.GetAccountDao()
 	err := accountDao.Register(user)
-	if err != nil {
-		// Log
-	}
+	//if err != nil {
+	//	// Log
+	//}
 	return err
 }
