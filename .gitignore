@@ -19,11 +19,18 @@
 
 # Go workspace file
 go.work
+go.work.sum
 
-application.yml
+# swaggo
+docs
 
-.idea
-tmp
+# log
 logs
 
-docs
+.idea
+
+tmp
+
+# env file
+.env
+application.yml

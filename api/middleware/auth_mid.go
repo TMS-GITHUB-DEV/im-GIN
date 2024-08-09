@@ -1,34 +1,35 @@
-package middle
+package middleware
 
 import (
 	"github.com/gin-gonic/gin"
-	resp "im-GIN/internal/common"
-	"im-GIN/internal/errors"
-	"im-GIN/internal/utils"
+	"im-GIN/conf"
+	"im-GIN/internal/global/errs"
+	"im-GIN/internal/global/resp"
+	"im-GIN/internal/global/utils"
 	"strings"
 )
 
 func Auth(c *gin.Context) {
-	token := c.Request.Header.Get("token")
-
+	token := c.Request.Header.Get(conf.Cfg.App.AuthKey)
 	if token == "" {
-		c.Error(errors.SimpleErrorWithCode(resp.NeedToLogin, "请先登录"))
+		c.Error(errs.SimpleErrWithCode(resp.NeedToLogin, "请先登录"))
 		c.Abort()
+		return
 	}
-	claim, err := utils.ValidateAccessToken(token)
-	if err != nil { // access_token验证未通过
+
+	claims, err := utils.ValidateAccessToken(token)
+	if err != nil {
 		msg := err.Error()
-		// 过期
 		if strings.Contains(msg, "token is expired") {
 			c.JSON(resp.LoginExpired, resp.Fail("access已过期"))
 			c.Abort()
 			return
 		}
 		// 其他解析错误
-		c.Error(errors.SimpleErrorWithCode(resp.NeedToLogin, "请重新登录"))
+		c.Error(errs.SimpleErrWithCode(resp.NeedToLogin, "请重新登录"))
 		c.Abort()
 		return
 	}
-	c.Set("claim", claim) // todo 用途未定
+	c.Set("claims", claims) // todo 用途为定
 	c.Next()
 }

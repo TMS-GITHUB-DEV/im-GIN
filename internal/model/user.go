@@ -2,22 +2,47 @@ package model
 
 import (
 	"gorm.io/gorm"
-	"im-GIN/internal/utils"
+	"im-GIN/internal/global/datastore"
+	"im-GIN/internal/global/utils"
+	"sync"
 )
 
 type User struct {
-	Id        uint64 `json:"id,omitempty"`
+	ID        uint64 `json:"id,omitempty"`
 	Phone     string `json:"phone,omitempty"`
-	Pwd       string `json:"pwd,omitempty"`
-	Sex       uint8  `json:"sex,omitempty"`
 	Email     string `json:"email,omitempty"`
-	AvatarUrl string `json:"avatar_url,omitempty"`
+	Password  string `json:"password,omitempty"`
+	Nickname  string `json:"nickname,omitempty"`
+	AvatarURL string `json:"avatar_url,omitempty"`
+	Sex       string `json:"sex,omitempty"`
+	BirthAt   uint64 `json:"birth_at,omitempty"`
 	BaseModel
 }
 
-// BeforeCreate
-// 用户插入前生成雪花id
 func (user *User) BeforeCreate(_ *gorm.DB) error {
-	user.Id = utils.GetSnowflakeID()
+	user.ID = utils.GetSnowflakeID()
 	return nil
+}
+
+type UserDao struct{}
+
+var (
+	userDao     *UserDao
+	onceUserDao sync.Once
+)
+
+func GetUserDao() *UserDao {
+	onceUserDao.Do(func() {
+		userDao = &UserDao{}
+	})
+	return userDao
+}
+
+func (userDao *UserDao) GetByPhone(phone string) (*User, error) {
+	var user User
+	res := datastore.DB.
+		Where("phone = ?", phone).
+		Where("deleted_at = 0").
+		Find(&user)
+	return &user, res.Error
 }

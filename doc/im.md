@@ -173,7 +173,7 @@
 | hash      | char()       | ''     | 文件hash                   |
 | file_url  | char()       | ''     | 文件url                    |
 | size      | int          | 0      | 文件大小（kb），`unsigned` |
-| type      | varchar()    |        |                            |
+| type      | varchar(10)  | ''     | 文件类型                   |
 | create_at | int(10)      | 0      | 创建时间，`unsigned`       |
 | update_at | int(10)      | 0      | 更新时间，`unsigned`       |
 | delete_at | int(10)      | 0      | 删除时间，`unsigned`       |

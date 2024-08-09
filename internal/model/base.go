@@ -2,28 +2,27 @@ package model
 
 import (
 	"gorm.io/gorm"
-	"im-GIN/internal/utils"
+	"im-GIN/internal/global/utils"
 )
 
 type BaseModel struct {
-	CreatedAt uint64 `json:"created_at,omitempty"`
-	UpdatedAt uint64 `json:"updated_at,omitempty"`
-	DeletedAt uint64 `json:"deleted_at,omitempty"`
+	CreatedAt uint64 `json:"createdAt,omitempty"`
+	UpdatedAt uint64 `json:"updatedAt,omitempty"`
+	DeletedAt uint64 `json:"deletedAt,omitempty"`
 }
 
-func (base *BaseModel) BeforeCreate(tx *gorm.DB) error {
-	now := utils.GetCurrentTs()
+// BeforeCreate
+// 创建前自动填充创建时间和更新时间
+func (base *BaseModel) BeforeCreate(_ *gorm.DB) error {
+	now := utils.GetCurrentMs()
 	base.CreatedAt = now
 	base.UpdatedAt = now
 	return nil
 }
 
+// BeforeUpdate
+// 更新前自动填充更新时间
 func (base *BaseModel) BeforeUpdate(_ *gorm.DB) error {
-	base.UpdatedAt = utils.GetCurrentTs()
+	base.UpdatedAt = utils.GetCurrentMs()
 	return nil
 }
-
-//func (base *BaseModel) BeforeDelete(tx *gorm.DB) error {
-//	base.DeletedAt = utils.GetCurrentTs()
-//	return nil
-//}
