@@ -42,7 +42,7 @@ func notAuthRoute(r *gin.Engine) {
 	fileRoute := r.Group("/file")
 	{
 		fileRoute.POST("/upload", handler.FileUpload)
-		fileRoute.GET("/download/:url", handler.FileDownload)
+		fileRoute.GET("/:url", handler.FileDownload)
 	}
 }
 

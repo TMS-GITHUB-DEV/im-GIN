@@ -50,7 +50,7 @@ func FileUpload(c *gin.Context) {
 // @param url path string true "文件名"
 // @success 200 {object} resp.R
 // @success 500 {object} resp.R
-// @Router /file/download/{url} [get]
+// @Router /file/{url} [get]
 func FileDownload(c *gin.Context) {
 	url := c.Param("url")
 	fileService := service.GetFileService()

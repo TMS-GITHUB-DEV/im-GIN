@@ -76,7 +76,11 @@
 
 #### 文件管理
 
+文件上传
 
+文件的sha256与它的文件类型构成唯一键，上传时不存在则插入文件表中，并插入文件引用记录；存在则只需插入引用记录。
+
+文件下载
 
 
 
@@ -115,12 +119,11 @@
 | 字段名     | 类型        | 默认值       | 备注                   |
 | ---------- | ----------- | ------------ | ---------------------- |
 | id         | bigint      | 0            | 主键，`unsigned`雪花id |
-|            |             |              |                        |
 | phone      | char(11)    | ''           | 手机号，`unique`       |
-| pwd        | varchar(20) | ''           | 密码                   |
+| password   | varchar(20) | ''           | 密码                   |
 | nickname   | varchar(10) | '一个小可爱' | 昵称                   |
 | sex        | tinyint(1)  | 0            | 性别，0：男 1：女      |
-| birthday   | bigint(10)  | 0            | 出生日期，`unsigned`   |
+| birth_at   | bigint(10)  | 0            | 出生日期，`unsigned`   |
 | region     | varchar(20) | ''           | 地区                   |
 | avatar_url | varchar(50) | ''           | 头像url                |
 | create_at  | int(10)     | 0            | 创建时间，`unsigned`   |
@@ -131,16 +134,16 @@
 
 ### 好友关系表
 
-| 字段      | 类型        | 默认值 | 备注                 |
-| --------- | ----------- | ------ | -------------------- |
-| id        | bigint      | 0      | 自增id               |
-| user1_id  | bigint      | 0      | 用户1                |
-| user2_id  | bigint      | 0      | 用户2                |
-| beizhu1   | varchar(10) | ''     | user1称user2         |
-| beizhu2   | varchar(10) | ''     | user2称user1         |
-| create_at | int(10)     | 0      | 创建时间，`unsigned` |
-| update_at | int(10)     | 0      | 更新时间，`unsigned` |
-| delete_at | int(10)     | 0      | 删除时间，`unsigned` |
+| 字段        | 类型        | 默认值 | 备注                 |
+| ----------- | ----------- | ------ | -------------------- |
+| id          | bigint      | 0      | 自增id               |
+| active_uid  | bigint      | 0      | 主动这uid            |
+| passive_uid | bigint      | 0      | 被动者uid            |
+| beizhu1     | varchar(10) | ''     | 主动者对被动者的备注 |
+| beizhu2     | varchar(10) | ''     | 被动者对主动者的备注 |
+| create_at   | int(10)     | 0      | 创建时间，`unsigned` |
+| update_at   | int(10)     | 0      | 更新时间，`unsigned` |
+| delete_at   | int(10)     | 0      | 删除时间，`unsigned` |
 
 
 
@@ -158,27 +161,38 @@
 | send_at    | int(10)       | 0       | 发送时间，`unsigned`                                         |
 | img_url    | char(100)     | ''      | 图片url                                                      |
 | path_url   | varchar(100)  | ''      | 路径url（文件\|卡片）                                        |
-| create_at  | int(10)       | 0       | 创建时间，`unsigned`                                         |
-| update_at  | int(10)       | 0       | 更新时间，`unsigned`                                         |
-| delete_at  | int(10)       | 0       | 删除时间，`unsigned`                                         |
+| create_at  | int           | 0       | 创建时间，`unsigned`                                         |
+| update_at  | int           | 0       | 更新时间，`unsigned`                                         |
+| delete_at  | int           | 0       | 删除时间，`unsigned`                                         |
 
 
 
 ### 文件表
 
-| 字段      | 类型         | 默认值 | 备注                       |
-| --------- | ------------ | ------ | -------------------------- |
-| id        | bigint       | 0      | 自增id，`unsigned`         |
-| file_name | varchar(100) | ''     | 文件名                     |
-| hash      | char()       | ''     | 文件hash                   |
-| file_url  | char()       | ''     | 文件url                    |
-| size      | int          | 0      | 文件大小（kb），`unsigned` |
-| type      | varchar(10)  | ''     | 文件类型                   |
-| create_at | int(10)      | 0      | 创建时间，`unsigned`       |
-| update_at | int(10)      | 0      | 更新时间，`unsigned`       |
-| delete_at | int(10)      | 0      | 删除时间，`unsigned`       |
+| 字段      | 类型        | 默认值 | 备注                       |
+| --------- | ----------- | ------ | -------------------------- |
+| id        | bigint      | 0      | 自增id，`unsigned`         |
+| hash      | char(64)    | ''     | 文件hash                   |
+| file_url  | char(200)   | ''     | 文件url                    |
+| size      | int         | 0      | 文件大小（kb），`unsigned` |
+| type      | varchar(10) | ''     | 文件类型                   |
+| create_at | int         | 0      | 创建时间，`unsigned`       |
+| update_at | int         | 0      | 更新时间，`unsigned`       |
+| delete_at | int         | 0      | 删除时间，`unsigned`       |
 
 
+
+### 文件引用记录表
+
+| 字段      | 类型         | 默认值 | 备注                  |
+| --------- | ------------ | ------ | --------------------- |
+| id        | bigint       | 0      | 自增id，`unsigned`    |
+| file_id   | bigint       | 0      | 文件id，`unsigned`    |
+| uid       | bigint       | 0      | 引用人uid，`unsigned` |
+| file_name | varchar(150) | ''     | 文件名                |
+| create_at | int          | 0      | 创建时间，`unsigned`  |
+| update_at | int          | 0      | 更新时间，`unsigned`  |
+| delete_at | int          | 0      | 删除时间，`unsigned`  |
 
 
 

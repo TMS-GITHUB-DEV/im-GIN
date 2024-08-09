@@ -2,7 +2,7 @@ app:
   host: localhost
   port: 10101
   auth_key: token
-  auth_secret: gin_temp
+  auth_secret: im-GIN
   auth_expire: 600 # 60 * 10
 
 database:

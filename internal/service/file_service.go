@@ -2,10 +2,10 @@ package service
 
 import (
 	"crypto/sha256"
+	"encoding/hex"
 	"fmt"
 	"im-GIN/conf"
 	"im-GIN/internal/global/errs"
-	"im-GIN/internal/global/utils"
 	"io"
 	"mime/multipart"
 	"os"
@@ -40,12 +40,10 @@ func (*FileService) FileUpload(file *multipart.FileHeader) (string, error) {
 		return "", errs.NewServerErr("文件错误", err)
 	}
 	fileHash := hashed.Sum(nil)
-	fileHashStr := fmt.Sprintf("%x", fileHash)
-	prefix := fileHashStr[:8]
-	nowTs := utils.GetCurrentTs()
+	fileHashStr := hex.EncodeToString(fileHash)
 	filename := file.Filename
 	fileType := filepath.Ext(filename)
-	newFilename := fmt.Sprintf("%s%d%s", prefix, nowTs, fileType)
+	newFilename := fmt.Sprintf("%s%s", fileHashStr, fileType)
 	// 查表存不存在相同的哈希
 	// 存在则更新引用次数
 	// 不存在则新增记录并保存到本地
