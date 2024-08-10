@@ -116,54 +116,68 @@
 
 ### 用户表
 
-| 字段名     | 类型        | 默认值       | 备注                   |
-| ---------- | ----------- | ------------ | ---------------------- |
-| id         | bigint      | 0            | 主键，`unsigned`雪花id |
-| phone      | char(11)    | ''           | 手机号，`unique`       |
-| password   | varchar(20) | ''           | 密码                   |
-| nickname   | varchar(10) | '一个小可爱' | 昵称                   |
-| sex        | tinyint(1)  | 0            | 性别，0：男 1：女      |
-| birth_at   | bigint(10)  | 0            | 出生日期，`unsigned`   |
-| region     | varchar(20) | ''           | 地区                   |
-| avatar_url | varchar(50) | ''           | 头像url                |
-| create_at  | int(10)     | 0            | 创建时间，`unsigned`   |
-| update_at  | int(10)     | 0            | 更新时间，`unsigned`   |
-| delete_at  | int(10)     | 0            | 删除时间，`unsigned`   |
+| 字段名     | 类型         | 默认值       | 备注                 |
+| ---------- | ------------ | ------------ | -------------------- |
+| id         | bigint       | 0            | 雪花id，`unsigned`   |
+| phone      | char(11)     | ''           | 手机号，`unique`     |
+| email      | varchar(50)  | ''           | 邮箱，`unique`       |
+| password   | varchar(20)  | ''           | 密码                 |
+| nickname   | varchar(10)  | '一个小可爱' | 昵称                 |
+| avatar_url | varchar(200) | ''           | 头像url              |
+| sex        | char(2)      | 0            | 性别，0：男 1：女    |
+| region     | varchar(50)  | ''           | 地区                 |
+| birth_at   | bigint       | 0            | 出生日期，`unsigned` |
+| create_at  | int          | 0            | 创建时间，`unsigned` |
+| update_at  | int          | 0            | 更新时间，`unsigned` |
+| delete_at  | int          | 0            | 删除时间，`unsigned` |
 
 
 
 ### 好友关系表
 
-| 字段        | 类型        | 默认值 | 备注                 |
-| ----------- | ----------- | ------ | -------------------- |
-| id          | bigint      | 0      | 自增id               |
-| active_uid  | bigint      | 0      | 主动这uid            |
-| passive_uid | bigint      | 0      | 被动者uid            |
-| beizhu1     | varchar(10) | ''     | 主动者对被动者的备注 |
-| beizhu2     | varchar(10) | ''     | 被动者对主动者的备注 |
-| create_at   | int(10)     | 0      | 创建时间，`unsigned` |
-| update_at   | int(10)     | 0      | 更新时间，`unsigned` |
-| delete_at   | int(10)     | 0      | 删除时间，`unsigned` |
+| 字段           | 类型        | 默认值 | 备注                                                         |
+| -------------- | ----------- | ------ | ------------------------------------------------------------ |
+| id             | bigint      | 0      | 雪花id， `unsigned`                                          |
+| active_uid     | bigint      | 0      | 主动者uid， `unsigned`                                       |
+| passive_uid    | bigint      | 0      | 被动者uid， `unsigned`                                       |
+| active_remark  | varchar(10) | ''     | 主动者对被动者的备注                                         |
+| passive_remark | varchar(10) | ''     | 被动者对主动者的备注                                         |
+| status         | int         | 0      | 状态，0：还不是好友；1：已同意；-1：主动者拉黑；-2：被动者拉黑 |
+| create_at      | int         | 0      | 创建时间，`unsigned`                                         |
+| update_at      | int         | 0      | 更新时间，`unsigned`                                         |
+| delete_at      | int         | 0      | 删除时间，`unsigned`                                         |
+
+
+
+### 申请好友表
+
+| 字段        | 类型   | 默认值 | 备注                                   |
+| ----------- | ------ | ------ | -------------------------------------- |
+| id          | bigint | 0      | 雪花id， `unsigned`                    |
+| active_uid  | bigint | 0      | 主动者uid， `unsigned`                 |
+| passive_uid | bigint | 0      | 被动者uid，`unsigned`                  |
+| status      | int    | 0      | 状态，0：未同意；1：已同意；-1：已拒绝 |
+| create_at   | int    | 0      | 创建时间，`unsigned`                   |
+| update_at   | int    | 0      | 更新时间，`unsigned`                   |
+| delete_at   | int    | 0      | 删除时间，`unsigned`                   |
 
 
 
 ### 聊天消息表
 
-| 字段       | 类型          | 默认值  | 备注                                                         |
-| ---------- | ------------- | ------- | ------------------------------------------------------------ |
-| id         | bigint        | 0       | 自增id                                                       |
-| sender_uid | bigint        | 0       | 发送者                                                       |
-| friend_id  | bigint        | 0       |                                                              |
-| group_id   | bigint        | 0       |                                                              |
-| content    | varchar(2000) | ''      | 消息内容，如是图片消息，默认是'[图片]'                       |
-| type       | int           | 0       | 消息类型`unsigned`，0：文本消息 1：图片消息                  |
-| status     | int           | 0b00000 | 消息状态`unsigned`，从右往左已读、撤回、接收方删除、发送方删除    0b01111 |
-| send_at    | int(10)       | 0       | 发送时间，`unsigned`                                         |
-| img_url    | char(100)     | ''      | 图片url                                                      |
-| path_url   | varchar(100)  | ''      | 路径url（文件\|卡片）                                        |
-| create_at  | int           | 0       | 创建时间，`unsigned`                                         |
-| update_at  | int           | 0       | 更新时间，`unsigned`                                         |
-| delete_at  | int           | 0       | 删除时间，`unsigned`                                         |
+| 字段       | 类型          | 默认值 | 备注                                        |
+| ---------- | ------------- | ------ | ------------------------------------------- |
+| id         | bigint        | 0      | 自增id， `unsigned`                         |
+| sender_uid | bigint        | 0      | 发送者                                      |
+| friend_id  | bigint        | 0      | 好友关系id， `unsigned`                     |
+| content    | varchar(2000) | ''     | 消息内容，如是图片消息，默认是'[图片]'      |
+| type       | int           | 0      | 消息类型`unsigned`，0：文本消息 1：图片消息 |
+| unread     | tinyint(1)    | 0      | 是否未读，0：未读 1：已读                   |
+| withdraw   | tinyint(1)    | 0      | 是否撤回，0：未撤回 1：已撤回               |
+| path_url   | varchar(200)  | ''     | 路径url（文件\|卡片）                       |
+| create_at  | int           | 0      | 创建时间，`unsigned`                        |
+| update_at  | int           | 0      | 更新时间，`unsigned`                        |
+| delete_at  | int           | 0      | 删除时间，`unsigned`                        |
 
 
 
@@ -171,7 +185,7 @@
 
 | 字段      | 类型        | 默认值 | 备注                       |
 | --------- | ----------- | ------ | -------------------------- |
-| id        | bigint      | 0      | 自增id，`unsigned`         |
+| id        | bigint      | 0      | 雪花id，`unsigned`         |
 | hash      | char(64)    | ''     | 文件hash                   |
 | file_url  | char(200)   | ''     | 文件url                    |
 | size      | int         | 0      | 文件大小（kb），`unsigned` |

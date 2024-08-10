@@ -10,7 +10,7 @@ database:
   port: 3306
   user: tms
   password: TMSmysql
-  table: gin-temp
+  table: im_db
   charset: utf8mb4
   parse_time: true
   loc: Local
