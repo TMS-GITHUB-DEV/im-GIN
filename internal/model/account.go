@@ -6,8 +6,9 @@ import (
 )
 
 type Account struct {
-	Phone    string `json:"phone" binding:"required"`
-	Password string `json:"password" binding:"required"`
+	Account  string `json:"account" binding:"required"`
+	Password string `json:"password"`
+	Code     string `json:"code"`
 }
 
 type AccountDao struct{}
@@ -27,7 +28,7 @@ func GetAccountDao() *AccountDao {
 func (*AccountDao) Login(account *Account) (*User, error) {
 	var user User
 	res := datastore.DB.
-		Where("phone = ?", account.Phone).
+		Where("phone = ?", account.Account).
 		Where("password = ?", account.Password).
 		Where("deleted_at = 0").
 		First(&user)

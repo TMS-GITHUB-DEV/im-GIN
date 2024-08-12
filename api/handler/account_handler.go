@@ -36,6 +36,39 @@ func Login(c *gin.Context) {
 	c.Set(resp.RES, resp.Success(token))
 }
 
+// LoginWithCode
+// @Tags [account]
+// @Summary 登录
+// @Description 登录并获取token
+// @Accept json
+// @Produce json
+// @param account body model.Account true "登录信息"
+// @success 200 {object} resp.R "登录成功"
+// @success 500 {object} resp.R "登录失败"
+// @Router /account/login_with_code [post]
+func LoginWithCode(c *gin.Context) {
+	var account model.Account
+	if err := c.ShouldBindJSON(&account); err != nil {
+		c.Error(errs.NewServerErr("登录异常", err))
+		c.Abort()
+		return
+	}
+
+	accountService := service.GetAccountService()
+	// fixme替换验证码登录方法
+	token, err := accountService.Login(&account)
+	if err != nil {
+		c.Error(err)
+		c.Abort()
+		return
+	}
+	c.Set(resp.RES, resp.Success(token))
+}
+
+func CMSCode(c *gin.Context) {
+	c.Set(resp.RES, resp.Success(nil))
+}
+
 // Register
 // @Tags [account]
 // @Summary 注册
