@@ -6,10 +6,10 @@ func GetCurrentTime() time.Time {
 	return time.Now()
 }
 
-func GetCurrentTs() uint64 {
-	return uint64(GetCurrentTime().Unix())
+func GetCurrentTs() int64 {
+	return GetCurrentTime().Unix()
 }
 
-func GetCurrentMs() uint64 {
-	return uint64(GetCurrentTime().UnixMilli())
+func GetCurrentMs() int64 {
+	return GetCurrentTime().UnixMilli()
 }

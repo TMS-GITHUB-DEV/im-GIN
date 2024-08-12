@@ -16,7 +16,7 @@ type User struct {
 	AvatarURL string `json:"avatar_url,omitempty"`
 	Sex       string `json:"sex,omitempty"`
 	Region    string `json:"region,omitempty"`
-	BirthAt   uint64 `json:"birth_at,omitempty"`
+	BirthAt   int64  `json:"birth_at,omitempty"`
 	BaseModel
 }
 
